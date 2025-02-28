@@ -28,3 +28,15 @@ class Cell:
             self._win.draw_line(Line(top_left,top_right))
         if self.has_bottom_wall:
             self._win.draw_line(Line(bottom_left,bottom_right))
+    def draw_move(self, to_cell, undo=False):
+        if undo:
+            colour = 'gray'
+        else:
+            colour = 'red'
+        def get_mid(x1,x2,y1,y2):
+            x = (x1 + x2)/2
+            y = (y1 + y2)/2
+            return Point(x,y)
+        from_mid = get_mid(self._x1, self._x2, self._y1, self._y2)
+        to_mid = get_mid(to_cell._x1, to_cell._x2, to_cell._y1, to_cell._y2)
+        self._win.draw_line(Line(from_mid,to_mid), colour)
