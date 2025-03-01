@@ -39,9 +39,9 @@ class Cell:
             self._win.draw_line(Line(bottom_left,bottom_right),'white')
     def draw_move(self, to_cell, undo=False):
         if undo:
-            colour = 'gray'
-        else:
             colour = 'red'
+        else:
+            colour = 'green2'
         def get_mid(x1,x2,y1,y2):
             x = (x1 + x2)/2
             y = (y1 + y2)/2

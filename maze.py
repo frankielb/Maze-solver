@@ -26,6 +26,8 @@ class Maze:
         self._create_cells()
         self._break_entrance_and_exit()
         self._break_walls_r(0,0)
+        self._reset_cells_visited()
+        self.solve()
 
     def _animate(self):
         if self.win is None:
@@ -92,6 +94,42 @@ class Maze:
                     self._cells[i][j+1].has_top_wall = False
                     self._draw_cell(i,j+1)
                 self._break_walls_r(direction[1],direction[2])
-                
-                    
+    
+    def _reset_cells_visited(self):
+        for col in self._cells:
+            for cell in col:
+                cell.visited = False
+    
+    def _solve_r(self, i, j):
+        self._animate()
+        self._cells[i][j].visited = True
+        if i == len(self._cells) - 1 and j == len(self._cells[0]) - 1:
+            return True
 
+        if i>0 and self._cells[i-1][j].visited == False and self._cells[i-1][j].has_right_wall == False:
+            self._cells[i][j].draw_move(self._cells[i-1][j])
+            if self._solve_r(i-1,j):
+                return True
+            self._cells[i][j].draw_move(self._cells[i-1][j],True)
+
+        if j>0 and self._cells[i][j-1].visited == False and self._cells[i][j-1].has_bottom_wall == False:
+            self._cells[i][j].draw_move(self._cells[i][j-1])
+            if self._solve_r(i,j-1):
+                return True
+            self._cells[i][j].draw_move(self._cells[i][j-1],True)
+
+        if i<len(self._cells)-1 and self._cells[i+1][j].visited == False and self._cells[i+1][j].has_left_wall == False:
+            self._cells[i][j].draw_move(self._cells[i+1][j])
+            if self._solve_r(i+1,j):
+                return True
+            self._cells[i][j].draw_move(self._cells[i+1][j],True)
+
+        if j<len(self._cells[0])-1 and self._cells[i][j+1].visited == False and self._cells[i][j+1].has_top_wall == False:
+            self._cells[i][j].draw_move(self._cells[i][j+1])
+            if self._solve_r(i,j+1):
+                return True
+            self._cells[i][j].draw_move(self._cells[i][j+1],True)
+        return False
+
+    def solve(self):
+        return self._solve_r(0,0)
