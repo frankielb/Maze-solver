@@ -17,7 +17,8 @@ def main():
         num_cols=10,     # 10 columns
         cell_size_x=40,  # each cell is 40 pixels wide
         cell_size_y=40,  # each cell is 40 pixels tall
-        win=win          # the window to draw in
+        win=win,
+        seed=10
     )
 
     win.wait_for_close()

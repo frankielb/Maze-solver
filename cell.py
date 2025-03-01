@@ -11,6 +11,7 @@ class Cell:
         self._y1 = None
         self._y2 = None
         self._win = window
+        self.visited = False
     def draw(self, x1, x2, y1, y2):
         self._x1 = x1
         self._x2 = x2
