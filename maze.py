@@ -20,6 +20,7 @@ class Maze:
         self.x1 = x1
         self.y1 = y1
         self._create_cells()
+        self._break_entrance_and_exit()
 
     def _animate(self):
         if self.win is None:
@@ -42,4 +43,8 @@ class Maze:
             for j,cell in enumerate(col):
                 self._draw_cell(i,j)
 
-    
+    def _break_entrance_and_exit(self):
+        self._cells[0][0].has_top_wall = False
+        self._draw_cell(0,0)
+        self._cells[-1][-1].has_bottom_wall = False
+        self._draw_cell(self.num_cols-1, self.num_rows-1)

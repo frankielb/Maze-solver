@@ -19,6 +19,7 @@ def main():
         cell_size_y=40,  # each cell is 40 pixels tall
         win=win          # the window to draw in
     )
+
     win.wait_for_close()
 
 main()
